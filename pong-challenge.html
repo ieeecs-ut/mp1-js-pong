@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS Pong</title>
+        <meta charset="UTF-8" />
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+            }
+            body {
+                background: black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #game {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas width="100" height="100" id="game"></canvas>
+        <script type="text/javascript">
+            const canvas = {
+                element: document.getElementById('game'),
+                context: null,
+                height: window.innerHeight,
+                width: window.innerWidth,
+            };
+
+            const config = {
+                gridSize: 15,
+                paddleSpeed: 6,
+                ballSpeed: 5,
+            };
+            config.config.paddleHeight = config.gridSize * 5; // 80
+            config.maxPaddleY =
+                canvas.height - config.gridSize - config.paddleHeight;
+            config.minPaddleY = config.gridSize;
+
+            const objects = {
+                leftPaddle: {
+                    x: config.gridSize * 2,
+                    y: canvas.height / 2 - config.paddleHeight / 2,
+                    width: config.gridSize,
+                    height: config.paddleHeight,
+                    dy: 0,
+                },
+                rightPaddle: {
+                    x: canvas.width - config.gridSize * 3,
+                    y: canvas.height / 2 - config.paddleHeight / 2,
+                    width: config.gridSize,
+                    height: config.paddleHeight,
+                    dy: 0,
+                },
+                ball: {
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    width: config.gridSize,
+                    height: config.gridSize,
+                    resetting: false,
+                    dx: config.ballSpeed,
+                    dy: -1 * config.ballSpeed,
+                },
+            };
+
+            const game = {
+                config: config,
+                canvas: canvas,
+                objects: objects,
+                c: (obj1, obj2) => {
+                    // TODO: collision detection
+                    // check for collision between two objects using axis-aligned bounding box (AABB)
+                    // @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+                    return false; // replace this
+                },
+                keyEvents: (_) => {
+                    // TODO: key listener events
+                    document.addEventListener('keydown', (e) => {
+                        // fill in here
+                    });
+                    document.addEventListener('keyup', (e) => {
+                        // fill in here
+                    });
+                },
+                loop: (_) => {
+                    // clear canvas
+                    canvas.context.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // TODO: implement game loop
+                    // move paddles by their velocity
+                    // prevent paddles from going through walls
+                    // draw paddles
+                    // move ball by its velocity
+                    // prevent ball from going through walls
+                    // reset ball if it goes past paddle (give player time to recover)
+                    // check to see if ball collides with paddle, and bounce off
+                    // draw ball
+                    // draw walls
+                    // draw dotted line down the middle
+                    // more features...
+
+                    window.requestAnimationFrame(game.loop);
+                },
+                start: (_) => {
+                    window.addEventListener('load', (_) => {
+                        canvas.element.width = `${canvas.width}`;
+                        canvas.element.height = `${canvas.height}`;
+                        canvas.context = canvas.element.getContext('2d');
+                        window.requestAnimationFrame(game.loop);
+                        game.keyEvents();
+                    });
+                },
+            };
+
+            game.start();
+        </script>
+    </body>
+</html>
